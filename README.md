@@ -9,7 +9,7 @@ Deployed using *Render (Frontend + Backend Hosting)*.
 ## 🚀 Live Demo
 
 - 🌐 Frontend: https://codealpha-simplee-commerce-store-1.onrender.com/
-- ⚙️ Backend API: https://codealpha-simplee-commerce-store-jesr.onrender.com/.com  
+- ⚙️ Backend API: "https://codealpha-simplee-commerce-store-jesr.onrender.com"; 
 
 ---
 
