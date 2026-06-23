@@ -18,7 +18,10 @@ function Home({ cart, setCart, loggedIn, setLoggedIn }) {
     if (loggedIn) {
       fetch(`${API}/api/products`)
         .then((res) => res.json())
-        .then((data) => console.log(data));
+        .then((data) => {
+  console.log(data);
+  setProducts(data);   // 🔥 THIS LINE WAS MISSING
+});
     }
   }, [loggedIn]);
 
@@ -339,40 +342,67 @@ function Register() {
 }
 
 // LOGIN
-const login = async () => {
-  try {
-    const res = await fetch(`${API}/api/users/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+function Login({ setLoggedIn }) {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] =
+    useState("");
+
+  const login = async () => {
+    const res = await fetch(
+      `${API}/api/users/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
 
     const data = await res.json();
-    console.log("Response:", data);
 
-    if (!res.ok) {
-      alert(data.message || "Login failed");
-      return;
-    }
-
+    alert(data.message);
     if (data.message === "Login success") {
-      alert("Login successful");
       setLoggedIn(true);
       navigate("/");
-    } else {
-      alert(data.message);
     }
+  };
 
-  } catch (error) {
-    console.error("Login error:", error);
-    alert("Server error");
-  }
-};
+  return (
+    <div style={{ padding: "20px" }}>
+      <h2>Login</h2>
+
+      <input
+        placeholder="Email"
+        onChange={(e) =>
+          setEmail(e.target.value)
+        }
+      />
+      <br />
+      <br />
+
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) =>
+          setPassword(e.target.value)
+        }
+      />
+      <br />
+      <br />
+
+      <button onClick={login}>
+        Login
+      </button>
+    </div>
+  );
+}
 // MAIN APP
 function App() {
   const [cart, setCart] = useState([]);
