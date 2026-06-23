@@ -27,6 +27,7 @@ function Home({ cart, setCart, loggedIn, setLoggedIn }) {
 
   if (!loggedIn) {
     return (
+      
       <div style={{ textAlign: "center", marginTop: "100px" }}>
         <h1>🛒 E-commerce Store </h1>
         
@@ -46,7 +47,35 @@ function Home({ cart, setCart, loggedIn, setLoggedIn }) {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div>
+
+  {/* NAVBAR */}
+  <div style={{
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "10px 20px",
+    background: "#333",
+    color: "white"
+  }}>
+    <h2>🛒 Store</h2>
+
+    <div>
+      <span style={{ marginRight: "15px" }}>
+        Cart: {cart.length}
+      </span>
+
+      <button onClick={() => {
+        localStorage.removeItem("user");
+        setLoggedIn(false);
+      }}>
+        Logout
+      </button>
+    </div>
+  </div>
+
+  {/* ORIGINAL CONTENT */}
+  <div style={{ padding: "20px" }}>
+  </div>
       <h1 style={{ textAlign: "center" }}>
         🛒 E-commerce Store
       </h1>
@@ -62,6 +91,12 @@ function Home({ cart, setCart, loggedIn, setLoggedIn }) {
     marginBottom: "20px",
   }}
 />
+<div style={{
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+  gap: "20px"
+}}>
+</div>
 
       {products
   .filter((p) =>
@@ -406,6 +441,15 @@ function Login({ setLoggedIn }) {
 // MAIN APP
 function App() {
   const [cart, setCart] = useState([]);
+  useEffect(() => {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}, [cart]);
+useEffect(() => {
+  const savedCart = localStorage.getItem("cart");
+  if (savedCart) {
+    setCart(JSON.parse(savedCart));
+  }
+}, []);
   const [loggedIn, setLoggedIn] =
     useState(false);
 
