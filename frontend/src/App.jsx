@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const API = "http://localhost:5000";
+const API = "https://codealpha-simplee-commerce-store-jesr.onrender.com";
 
 // HOME
 function Home({ cart, setCart, loggedIn, setLoggedIn }) {
@@ -18,7 +18,7 @@ function Home({ cart, setCart, loggedIn, setLoggedIn }) {
     if (loggedIn) {
       fetch(`${API}/api/products`)
         .then((res) => res.json())
-        .then((data) => setProducts(data));
+        .then((data) => console.log(data));
     }
   }, [loggedIn]);
 
@@ -339,69 +339,40 @@ function Register() {
 }
 
 // LOGIN
-function Login({ setLoggedIn }) {
-  const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] =
-    useState("");
-
-  const login = async () => {
-    const res = await fetch(
-      `${API}/api/users/login`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    );
+const login = async () => {
+  try {
+    const res = await fetch(`${API}/api/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
 
     const data = await res.json();
+    console.log("Response:", data);
 
-    alert(data.message);
+    if (!res.ok) {
+      alert(data.message || "Login failed");
+      return;
+    }
 
     if (data.message === "Login success") {
+      alert("Login successful");
       setLoggedIn(true);
       navigate("/");
+    } else {
+      alert(data.message);
     }
-  };
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h2>Login</h2>
-
-      <input
-        placeholder="Email"
-        onChange={(e) =>
-          setEmail(e.target.value)
-        }
-      />
-      <br />
-      <br />
-
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) =>
-          setPassword(e.target.value)
-        }
-      />
-      <br />
-      <br />
-
-      <button onClick={login}>
-        Login
-      </button>
-    </div>
-  );
-}
-
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("Server error");
+  }
+};
 // MAIN APP
 function App() {
   const [cart, setCart] = useState([]);
