@@ -96,7 +96,9 @@ function Home({ cart, setCart, loggedIn, setLoggedIn }) {
   style={{
     padding: "12px",
     width: "100%",
-    margin: "20px 0",
+    maxWidth: "600px",   // ✅ FIX
+    display: "block",    // ✅ FIX
+    margin: "20px auto", // ✅ CENTER FIX
     borderRadius: "8px",
     border: "1px solid #ccc",
     outline: "none",
