@@ -64,7 +64,7 @@ Create a .env file inside the *server/* folder:
 DATABASE_URL=your_neon_postgres_connection_string
 PORT=5000
 
-# ⚙️ Installation & Setup Guide
+# 
 
 This guide will help you run the *E-Commerce Cart Application* locally.
 
