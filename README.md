@@ -56,11 +56,11 @@ Deployed using *Render (Frontend + Backend Hosting)*.
 │   ├── App.jsx
 │   └── package.json
 
-## ⚙️ Environment Variables
 
 Create a .env file inside the *server/* folder:
 
 ```env
+## ⚙️ Environment Variables
 DATABASE_URL=your_neon_postgres_connection_string
 PORT=5000
 
@@ -70,8 +70,7 @@ This guide will help you run the *E-Commerce Cart Application* locally.
 
 ---
 
-## 📌 Prerequisites
-
+📌 Prerequisites
 Make sure you have installed:
 - Node.js (v16+ recommended)
 - npm (Node Package Manager)
@@ -80,12 +79,12 @@ Make sure you have installed:
 
 ---
 
-## 📁 1. Clone the Repository
+📁 1. Clone the Repository
 
 ```bash id="clonecmd"
 git clone https: https://github.com/pallapudharani19-spec/CodeAlpha_SimpleE-commerce-Store 
 
-📦 INSTALL DEPENDENCIES
+📦 Install DEPENDENCIES
 🔹 INSTALL ROOT DEPENDENCIES (if applicable)
 Bash
 npm install
