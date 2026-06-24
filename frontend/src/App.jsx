@@ -51,28 +51,36 @@ function Home({ cart, setCart, loggedIn, setLoggedIn }) {
 
   {/* NAVBAR */}
   <div style={{
-    display: "flex",
-    justifyContent: "space-between",
-    padding: "10px 20px",
-    background: "#333",
-    color: "white"
-  }}>
-    <h2>🛒 Store</h2>
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "15px 30px",
+  background: "#111827",
+  color: "white"
+}}>
+  <h2 style={{ margin: 0 }}>🛒 Store</h2>
 
-    <div>
-      <span style={{ marginRight: "15px" }}>
-        Cart: {cart.length}
-      </span>
+  <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+    <span>Cart: {cart.length}</span>
 
-      <button onClick={() => {
+    <button
+      style={{
+        background: "#ef4444",
+        color: "white",
+        border: "none",
+        padding: "8px 12px",
+        borderRadius: "6px",
+        cursor: "pointer"
+      }}
+      onClick={() => {
         localStorage.removeItem("user");
         setLoggedIn(false);
-      }}>
-        Logout
-      </button>
-    </div>
+      }}
+    >
+      Logout
+    </button>
   </div>
-
+</div>
   {/* ORIGINAL CONTENT */}
   <div style={{ padding: "20px" }}>
   </div>
@@ -82,65 +90,76 @@ function Home({ cart, setCart, loggedIn, setLoggedIn }) {
       <h2>Products</h2>
       <input
   type="text"
-  placeholder="Search products..."
+  placeholder="🔍 Search products..."
   value={search}
   onChange={(e) => setSearch(e.target.value)}
   style={{
-    padding: "10px",
+    padding: "12px",
     width: "100%",
-    marginBottom: "20px",
+    margin: "20px 0",
+    borderRadius: "8px",
+    border: "1px solid #ccc",
+    outline: "none",
+    fontSize: "16px",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.05)"
   }}
 />
-<div style={{
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-  gap: "20px"
-}}>
-</div>
-
-      {products
-  .filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase())
-  )
-  .map((p) => (
-        <div
-          key={p.id}
-          style={{
-  border: "1px solid #ddd",
-  padding: "15px",
-  marginBottom: "15px",
-  borderRadius: "10px",
-  textAlign: "center",
-  maxWidth: "350px",
-  margin: "15px auto",
-  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-}}
-        >
-          <img
-  src={p.image}
-  alt={p.name}
-  onError={(e) => {
-    e.target.src = "https://picsum.photos/200";
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: "20px"
   }}
+>
+  {products
+    .filter((p) =>
+      p.name.toLowerCase().includes(search.toLowerCase())
+    )
+    .map((p) => (
+      <div
+  key={p.id}
+  style={{
+    background: "white",
+    borderRadius: "12px",
+    padding: "15px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    textAlign: "center",
+    transition: "0.3s",
+    cursor: "pointer"
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.transform = "scale(1.05)";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = "scale(1)";
+  }}
+>
+        <img
+          src={p.image}
+          alt={p.name}
+          style={{
+            width: "100%",
+            height: "200px",
+            objectFit: "cover",
+            borderRadius: "10px"
+          }}
+        />
+
+        <h3>{p.name}</h3>
+        <p>₹{p.price}</p>
+
+       <button
   style={{
     width: "100%",
-maxWidth: "220px",
-height: "220px",
-    objectFit: "cover",
-    borderRadius: "10px",
+    marginTop: "10px",
+    background: "#2563eb",
+    color: "white",
+    padding: "10px",
+    borderRadius: "8px",
+    border: "none",
+    cursor: "pointer",
+    fontWeight: "bold"
   }}
-/>
-
-          <h3
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate(`/product/${p.id}`)}
-          >
-            {p.name}
-          </h3>
-
-          <p>₹{p.price}</p>
-
-          <button
   onClick={() => {
     const existing = cart.find(
       (item) => item.id === p.id
@@ -167,8 +186,10 @@ height: "220px",
 >
   Add to Cart
 </button>
-        </div>
-      ))}
+      </div>
+    ))}
+</div>
+
 
       <h1
         style={{
